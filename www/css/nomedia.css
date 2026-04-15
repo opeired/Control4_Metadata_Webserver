@@ -1,0 +1,86 @@
+@charset "UTF-8";
+
+html, body{
+  height:100%; margin:0; background:#000 !important; color:#fff !important; overflow:hidden;
+  font-family: "Roboto", system-ui, -apple-system, "Segoe UI", Arial, sans-serif !important;
+}
+.text{ color:#fff !important; font-family: inherit !important; }
+#main-container{ opacity:1; transition: opacity 1.2s ease; height:100vh; width:100vw; position:relative; overflow:hidden; }
+#main-container.fade{ opacity:0; }
+#metadata-container{ display:none !important; }
+
+/* Stacked layout */
+body.nomedia-stacked #date-time-temp-container{
+  position:absolute; width:88vw; max-width:760px; display:flex; flex-direction:column; gap:6vh;
+}
+body.nomedia-stacked #temp, body.nomedia-stacked #time, body.nomedia-stacked #date{
+  display:flex; flex-direction:column; line-height:1;
+}
+body.nomedia-stacked #temp-num{ font-weight:100; line-height:0.95; opacity:0.95; }
+body.nomedia-stacked #clock{ font-weight:100; line-height:0.95; opacity:0.95; }
+body.nomedia-stacked #dayofweek, body.nomedia-stacked #month, body.nomedia-stacked #scale{ font-weight:300; opacity:0.75; }
+body.nomedia-stacked #day{ font-weight:100; line-height:0.95; opacity:0.95; }
+body.nomedia-stacked #ampm{ display:none; }
+body.nomedia-stacked.profile-portrait-small #temp-num,
+body.nomedia-stacked.profile-auto-portrait #temp-num{ font-size:16vmin; }
+body.nomedia-stacked.profile-portrait-small #clock,
+body.nomedia-stacked.profile-auto-portrait #clock{ font-size:28vmin; }
+body.nomedia-stacked.profile-portrait-small #day,
+body.nomedia-stacked.profile-auto-portrait #day{ font-size:18vmin; }
+body.nomedia-stacked.profile-portrait-small #dayofweek,
+body.nomedia-stacked.profile-portrait-small #month,
+body.nomedia-stacked.profile-auto-portrait #dayofweek,
+body.nomedia-stacked.profile-auto-portrait #month{ font-size:6vmin; letter-spacing:0.20em; }
+body.nomedia-stacked.profile-portrait-small #scale,
+body.nomedia-stacked.profile-auto-portrait #scale{ font-size:5vmin; letter-spacing:0.25em; }
+
+body.nomedia-stacked.profile-portrait-large #temp-num{ font-size:13vmin; }
+body.nomedia-stacked.profile-portrait-large #clock{ font-size:22vmin; }
+body.nomedia-stacked.profile-portrait-large #day{ font-size:14vmin; }
+body.nomedia-stacked.profile-portrait-large #dayofweek,
+body.nomedia-stacked.profile-portrait-large #month{ font-size:4.5vmin; letter-spacing:0.18em; }
+body.nomedia-stacked.profile-portrait-large #scale{ font-size:3.8vmin; letter-spacing:0.22em; }
+
+body.nomedia-stacked.profile-landscape-small #temp-num,
+body.nomedia-stacked.profile-landscape-large #temp-num,
+body.nomedia-stacked.profile-auto-landscape #temp-num{ font-size:9vmin; }
+body.nomedia-stacked.profile-landscape-small #clock{ font-size:18vmin; }
+body.nomedia-stacked.profile-landscape-large #clock,
+body.nomedia-stacked.profile-auto-landscape #clock{ font-size:20vmin; }
+body.nomedia-stacked.profile-landscape-small #day,
+body.nomedia-stacked.profile-landscape-large #day,
+body.nomedia-stacked.profile-auto-landscape #day{ font-size:11vmin; }
+body.nomedia-stacked.profile-landscape-small #dayofweek,
+body.nomedia-stacked.profile-landscape-small #month,
+body.nomedia-stacked.profile-landscape-large #dayofweek,
+body.nomedia-stacked.profile-landscape-large #month,
+body.nomedia-stacked.profile-auto-landscape #dayofweek,
+body.nomedia-stacked.profile-auto-landscape #month{ font-size:3.2vmin; letter-spacing:0.18em; }
+body.nomedia-stacked.profile-landscape-small #scale,
+body.nomedia-stacked.profile-landscape-large #scale,
+body.nomedia-stacked.profile-auto-landscape #scale{ font-size:2.8vmin; letter-spacing:0.20em; }
+
+#main-container.npos0 #date-time-temp-container{ left:6vw; top:6vh; right:auto; bottom:auto; align-items:flex-start; text-align:left; }
+#main-container.npos1 #date-time-temp-container{ left:6vw; bottom:7vh; right:auto; top:auto; align-items:flex-start; text-align:left; }
+#main-container.npos2 #date-time-temp-container{ right:6vw; top:6vh; left:auto; bottom:auto; align-items:flex-end; text-align:right; }
+#main-container.npos3 #date-time-temp-container{ right:6vw; bottom:7vh; left:auto; top:auto; align-items:flex-end; text-align:right; }
+#main-container.npos0 #temp, #main-container.npos0 #time, #main-container.npos0 #date,
+#main-container.npos1 #temp, #main-container.npos1 #time, #main-container.npos1 #date{ align-items:flex-start; text-align:left; }
+#main-container.npos2 #temp, #main-container.npos2 #time, #main-container.npos2 #date,
+#main-container.npos3 #temp, #main-container.npos3 #time, #main-container.npos3 #date{ align-items:flex-end; text-align:right; }
+
+/* Clock-only layout */
+body.nomedia-clockonly #date, body.nomedia-clockonly #temp{ display:none !important; }
+body.nomedia-clockonly #date-time-temp-container{ position:absolute; width:auto; }
+body.nomedia-clockonly #time{ display:flex; flex-direction:column; line-height:1; }
+body.nomedia-clockonly #ampm{ display:none; }
+body.nomedia-clockonly.profile-portrait-small #clock,
+body.nomedia-clockonly.profile-auto-portrait #clock{ font-size:30vmin; }
+body.nomedia-clockonly.profile-portrait-large #clock{ font-size:24vmin; }
+body.nomedia-clockonly.profile-landscape-small #clock{ font-size:22vmin; }
+body.nomedia-clockonly.profile-landscape-large #clock,
+body.nomedia-clockonly.profile-auto-landscape #clock{ font-size:24vmin; }
+#main-container.npos0.nomedia-clockonly #date-time-temp-container{ left:6vw; top:6vh; }
+#main-container.npos1.nomedia-clockonly #date-time-temp-container{ left:6vw; bottom:7vh; }
+#main-container.npos2.nomedia-clockonly #date-time-temp-container{ right:6vw; top:6vh; }
+#main-container.npos3.nomedia-clockonly #date-time-temp-container{ right:6vw; bottom:7vh; }

@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+
+# temp / logs
+*.log
+*.tmp
+*.bak
+
+# editor junk
+*.swp
+*.swo
+
+# archives
+*.zip

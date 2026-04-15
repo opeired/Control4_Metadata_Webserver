@@ -1,0 +1,22 @@
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: #000;
+    color: #fff;
+    overflow: hidden;
+    font-family: "Roboto", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body, .text {
+    font-family: "Roboto", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+}
+
+img {
+    display: block;
+}

@@ -1,0 +1,56 @@
+{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}{\f1\fswiss\fcharset0 Arial-BoldMT;}{\f2\fswiss\fcharset0 ArialMT;}{\f3\fmodern\fcharset0 CourierNewPSMT;}}
+\viewkind4\uc1\pard\sa200\sl276\slmult1\f0\fs8 --\b\f1\fs32 Metadata Webserver Driver\b0\f2\fs24\par
+\par
+\b\f1 Purpose\b0\f2\par
+Serves a room-specific Now Playing / no-media screensaver page for Control4 touchpanels, tablets, and web views. The page is requested using the room id in the URL:\par
+\f3 http://<controller-ip>:8089/<roomid>\f2\par
+\par
+\b\f1 Main Features\b0\f2\par
+- Per-room layout profile overrides\par
+- Portrait and landscape profile support\par
+- Burn-in protection movement\par
+- Media and no-media layouts\par
+- Optional weather display\par
+\par
+\b\f1 Composer Properties\b0\f2\par
+\b\f1 Default Profile\b0\f2  - Auto, Portrait Small, Portrait Large, Landscape Small, Landscape Large\par
+\b\f1 Burn-In Mode\b0\f2  - Off, Clock Corners, Shuffle\par
+\b\f1 No-Media Layout\b0\f2  - Clock Only, Stacked\par
+\b\f1 Show Weather\b0\f2  - Yes or No\par
+\b\f1 Weather Source\b0\f2  - Weather.gov, Control4 (future option; current implementation still uses Weather.gov)\par
+\par
+\b\f1 Room Overrides\b0\f2\par
+Eight override slots are provided. For each slot:\par
+- Enable the override\par
+- Enter the target Room ID\par
+- Select the profile for that room\par
+\par
+If a room matches an enabled override, that profile is used. Otherwise the driver uses Default Profile.\par
+\par
+\b\f1 URL Usage\b0\f2\par
+Examples:\par
+\f3 http://192.168.1.10:8089/5\par
+http://192.168.1.10:8089/12\f2\par
+\par
+The number at the end is the Control4 Room ID.\par
+\par
+\b\f1 Profile Guidance\b0\f2\par
+\b\f1 Portrait Small\b0\f2  - Best for small vertical tablets or phones\par
+\b\f1 Portrait Large\b0\f2  - Best for larger vertical tablets\par
+\b\f1 Landscape Small\b0\f2  - Best for smaller horizontal panels\par
+\b\f1 Landscape Large\b0\f2  - Best for 8 inch horizontal tablets and similar screens\par
+\b\f1 Auto\b0\f2  - Uses browser orientation / viewport detection\par
+\par
+\b\f1 Burn-In Notes\b0\f2\par
+Media mode can move the clock between corners. No-media mode can shuffle the aligned information block. This helps reduce OLED / LCD image retention.\par
+\par
+\b\f1 Troubleshooting\b0\f2\par
+\b\f1 Missing main.html\b0\f2  - Verify the driver was imported from the latest package and that the web assets remain under the driver's www folder.\par
+\b\f1 Blank page\b0\f2  - Check the room id in the URL and confirm the driver is online.\par
+\b\f1 Wrong layout\b0\f2  - Review Default Profile and any enabled room override entries.\par
+\b\f1 No weather\b0\f2  - Verify the controller has internet access and that latitude / longitude are available to the project endpoint.\par
+\par
+\b\f1 Notes\b0\f2\par
+This driver package was customized to support profile-based layouts while preserving the original Control4-style web asset loading behavior.\par
+\pard\f0\fs8\par
+}

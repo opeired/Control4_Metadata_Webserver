@@ -1,0 +1,337 @@
+<devicedata>
+  <copyright>Copyright 2011 Control4.  All rights reserved.</copyright>
+  <manufacturer>Control4</manufacturer>
+  <model>Metadata Webserver</model>
+  <creator>OpenAI</creator>
+  <created>4/14/2026 8:00:00 PM</created>
+  <modified>4/14/2026 8:00:00 PM</modified>
+  <name>Metadata Webserver</name>
+  <small>devices_sm\C4.gif</small>
+  <large>devices_lg\C4.gif</large>
+  <control>lua_gen</control>
+  <driver>DriverWorks</driver>
+  <controlmethod>ip</controlmethod>
+  <proxy>webserver</proxy>
+  <combo>true</combo>
+  <events>
+    <event>
+      <id>1</id>
+      <name>Command Received</name>
+      <description>Received a command over web connection</description>
+    </event>
+  </events>
+  <config>
+    <properties>
+      <property>
+        <name>Debug Mode</name>
+        <type>LIST</type>
+        <items>
+          <item>Off</item>
+          <item>Print</item>
+          <item>Log</item>
+          <item>Print and Log</item>
+        </items>
+        <default>Off</default>
+        <readonly>false</readonly>
+      </property>
+      <property>
+        <name>Default Profile</name>
+        <type>LIST</type>
+        <items>
+          <item>Auto</item>
+          <item>Portrait Small</item>
+          <item>Portrait Large</item>
+          <item>Landscape Small</item>
+          <item>Landscape Large</item>
+        </items>
+        <default>Auto</default>
+        <readonly>false</readonly>
+      </property>
+      <property>
+        <name>Burn-In Mode</name>
+        <type>LIST</type>
+        <items>
+          <item>Off</item>
+          <item>Clock Corners</item>
+          <item>Shuffle</item>
+        </items>
+        <default>Clock Corners</default>
+        <readonly>false</readonly>
+      </property>
+      <property>
+        <name>No-Media Layout</name>
+        <type>LIST</type>
+        <items>
+          <item>Clock Only</item>
+          <item>Stacked</item>
+        </items>
+        <default>Stacked</default>
+        <readonly>false</readonly>
+      </property>
+      <property>
+        <name>Show Weather</name>
+        <type>LIST</type>
+        <items>
+          <item>Yes</item>
+          <item>No</item>
+        </items>
+        <default>Yes</default>
+        <readonly>false</readonly>
+      </property>
+      <property>
+        <name>Weather Source</name>
+        <type>LIST</type>
+        <items>
+          <item>Weather.gov</item>
+          <item>Control4</item>
+        </items>
+        <default>Weather.gov</default>
+        <readonly>false</readonly>
+      </property>
+      <property>
+        <name>Override 1 Enabled</name>
+        <type>LIST</type>
+        <items>
+          <item>False</item>
+          <item>True</item>
+        </items>
+        <default>False</default>
+        <readonly>false</readonly>
+      </property>
+      <property>
+        <name>Override 1 Room ID</name>
+        <type>STRING</type>
+        <default></default>
+        <readonly>false</readonly>
+      </property>
+      <property>
+        <name>Override 1 Profile</name>
+        <type>LIST</type>
+        <items>
+          <item>Auto</item>
+          <item>Portrait Small</item>
+          <item>Portrait Large</item>
+          <item>Landscape Small</item>
+          <item>Landscape Large</item>
+        </items>
+        <default>Auto</default>
+        <readonly>false</readonly>
+      </property>
+      <property>
+        <name>Override 2 Enabled</name>
+        <type>LIST</type>
+        <items>
+          <item>False</item>
+          <item>True</item>
+        </items>
+        <default>False</default>
+        <readonly>false</readonly>
+      </property>
+      <property>
+        <name>Override 2 Room ID</name>
+        <type>STRING</type>
+        <default></default>
+        <readonly>false</readonly>
+      </property>
+      <property>
+        <name>Override 2 Profile</name>
+        <type>LIST</type>
+        <items>
+          <item>Auto</item>
+          <item>Portrait Small</item>
+          <item>Portrait Large</item>
+          <item>Landscape Small</item>
+          <item>Landscape Large</item>
+        </items>
+        <default>Auto</default>
+        <readonly>false</readonly>
+      </property>
+      <property>
+        <name>Override 3 Enabled</name>
+        <type>LIST</type>
+        <items>
+          <item>False</item>
+          <item>True</item>
+        </items>
+        <default>False</default>
+        <readonly>false</readonly>
+      </property>
+      <property>
+        <name>Override 3 Room ID</name>
+        <type>STRING</type>
+        <default></default>
+        <readonly>false</readonly>
+      </property>
+      <property>
+        <name>Override 3 Profile</name>
+        <type>LIST</type>
+        <items>
+          <item>Auto</item>
+          <item>Portrait Small</item>
+          <item>Portrait Large</item>
+          <item>Landscape Small</item>
+          <item>Landscape Large</item>
+        </items>
+        <default>Auto</default>
+        <readonly>false</readonly>
+      </property>
+      <property>
+        <name>Override 4 Enabled</name>
+        <type>LIST</type>
+        <items>
+          <item>False</item>
+          <item>True</item>
+        </items>
+        <default>False</default>
+        <readonly>false</readonly>
+      </property>
+      <property>
+        <name>Override 4 Room ID</name>
+        <type>STRING</type>
+        <default></default>
+        <readonly>false</readonly>
+      </property>
+      <property>
+        <name>Override 4 Profile</name>
+        <type>LIST</type>
+        <items>
+          <item>Auto</item>
+          <item>Portrait Small</item>
+          <item>Portrait Large</item>
+          <item>Landscape Small</item>
+          <item>Landscape Large</item>
+        </items>
+        <default>Auto</default>
+        <readonly>false</readonly>
+      </property>
+      <property>
+        <name>Override 5 Enabled</name>
+        <type>LIST</type>
+        <items>
+          <item>False</item>
+          <item>True</item>
+        </items>
+        <default>False</default>
+        <readonly>false</readonly>
+      </property>
+      <property>
+        <name>Override 5 Room ID</name>
+        <type>STRING</type>
+        <default></default>
+        <readonly>false</readonly>
+      </property>
+      <property>
+        <name>Override 5 Profile</name>
+        <type>LIST</type>
+        <items>
+          <item>Auto</item>
+          <item>Portrait Small</item>
+          <item>Portrait Large</item>
+          <item>Landscape Small</item>
+          <item>Landscape Large</item>
+        </items>
+        <default>Auto</default>
+        <readonly>false</readonly>
+      </property>
+      <property>
+        <name>Override 6 Enabled</name>
+        <type>LIST</type>
+        <items>
+          <item>False</item>
+          <item>True</item>
+        </items>
+        <default>False</default>
+        <readonly>false</readonly>
+      </property>
+      <property>
+        <name>Override 6 Room ID</name>
+        <type>STRING</type>
+        <default></default>
+        <readonly>false</readonly>
+      </property>
+      <property>
+        <name>Override 6 Profile</name>
+        <type>LIST</type>
+        <items>
+          <item>Auto</item>
+          <item>Portrait Small</item>
+          <item>Portrait Large</item>
+          <item>Landscape Small</item>
+          <item>Landscape Large</item>
+        </items>
+        <default>Auto</default>
+        <readonly>false</readonly>
+      </property>
+      <property>
+        <name>Override 7 Enabled</name>
+        <type>LIST</type>
+        <items>
+          <item>False</item>
+          <item>True</item>
+        </items>
+        <default>False</default>
+        <readonly>false</readonly>
+      </property>
+      <property>
+        <name>Override 7 Room ID</name>
+        <type>STRING</type>
+        <default></default>
+        <readonly>false</readonly>
+      </property>
+      <property>
+        <name>Override 7 Profile</name>
+        <type>LIST</type>
+        <items>
+          <item>Auto</item>
+          <item>Portrait Small</item>
+          <item>Portrait Large</item>
+          <item>Landscape Small</item>
+          <item>Landscape Large</item>
+        </items>
+        <default>Auto</default>
+        <readonly>false</readonly>
+      </property>
+      <property>
+        <name>Override 8 Enabled</name>
+        <type>LIST</type>
+        <items>
+          <item>False</item>
+          <item>True</item>
+        </items>
+        <default>False</default>
+        <readonly>false</readonly>
+      </property>
+      <property>
+        <name>Override 8 Room ID</name>
+        <type>STRING</type>
+        <default></default>
+        <readonly>false</readonly>
+      </property>
+      <property>
+        <name>Override 8 Profile</name>
+        <type>LIST</type>
+        <items>
+          <item>Auto</item>
+          <item>Portrait Small</item>
+          <item>Portrait Large</item>
+          <item>Landscape Small</item>
+          <item>Landscape Large</item>
+        </items>
+        <default>Auto</default>
+        <readonly>false</readonly>
+      </property>
+    </properties>
+    <actions>
+      <action>
+        <name>Default Action</name>
+        <command>DEFAULT_ACTION</command>
+      </action>
+    </actions>
+    <commands />
+    <script file="driver.lua" />
+    <documentation file="documentation.rtf" />
+  </config>
+  <connections />
+  <capabilities />
+  <version>2</version>
+</devicedata>
