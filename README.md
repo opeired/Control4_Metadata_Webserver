@@ -78,6 +78,11 @@ This driver must be opened and published using Control4 Driver Editor / Driver B
 
 ---
 
+## Screenshots
+
+| No Media | Media |
+|----------|----------|
+|![Landscape](docs/largeHorizontal.png)![Portrait](docs/smallVertical.png)|![Landscape Media](docs/largeHorizontal_media.png)![Portrait Media](docs/smallVertical_media.png)|
 ## Version
 
 v1.0 – Initial stable release
