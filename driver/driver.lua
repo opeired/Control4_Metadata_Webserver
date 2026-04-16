@@ -167,10 +167,12 @@ function GetConfigForRoom(roomId)
    cfg["burnInMode"] = GetProperty("Burn-In Mode", "Clock Corners")
    cfg["noMediaLayout"] = GetProperty("No-Media Layout", "Stacked")
    cfg["showWeather"] = (GetProperty("Show Weather", "Yes") == "Yes")
+   cfg["showLogo"] = (GetProperty("Show Logo", "Yes") == "Yes")
    cfg["weatherSource"] = GetProperty("Weather Source", "Weather.gov")
    cfg["roomId"] = tostring(roomId or "")
    return cfg
 end
+
 
 function GetRoomMedia(roomId)
   local args = {}
@@ -182,43 +184,147 @@ function GetRoomMedia(roomId)
         args[v["Name"]] = v.Value or ""
      end
 
-     local deviceInfoXml = C4:GetDeviceData(tonumber(args["deviceid"]))
-     deviceInfoXml = "<data>"..deviceInfoXml.."</data>"
-     local deviceInfo = C4:ParseXml(deviceInfoXml)
      local ip = C4:GetControllerNetworkAddress()
+     local iconDeviceId = tonumber(args["medSrcDev"]) or tonumber(args["deviceid"])
+     local fallbackDeviceId = tonumber(args["deviceid"])
 
-     for i1,v1 in pairs(deviceInfo.ChildNodes) do
-      if(v1.Name == "capabilities") then
-        for i2,v2 in pairs(deviceInfo.ChildNodes[i1].ChildNodes) do
-           if (v2.Name == "navigator_display_option") then
-             for i3,v3 in pairs(deviceInfo.ChildNodes[i1].ChildNodes[i2].ChildNodes) do
-              if (v3.Name == "display_icons") then
-                deviceIconUrl = deviceInfo.ChildNodes[i1].ChildNodes[i2].ChildNodes[i3].ChildNodes[1].Value
-              end
-             end
+     local function extractText(node)
+        if node == nil then return "" end
+        if node.Value ~= nil then return node.Value end
+        if node["Value"] ~= nil then return node["Value"] end
+        return ""
+     end
+
+     local function findChildByName(node, childName)
+        if node == nil or node.ChildNodes == nil then return nil end
+        for _,child in pairs(node.ChildNodes) do
+           if child.Name == childName then
+              return child
            end
         end
-      end
+        return nil
+     end
+
+     local function getAttr(node, attrName)
+        if node == nil then return nil end
+        if node[attrName] ~= nil then return node[attrName] end
+        if node.Attributes ~= nil then
+           if node.Attributes[attrName] ~= nil then return node.Attributes[attrName] end
+           for _,a in pairs(node.Attributes) do
+              if type(a) == "table" and (a.Name == attrName or a.name == attrName) then
+                 return a.Value or a.value
+              end
+           end
+        end
+        return nil
+     end
+
+     local function controllerToHttp(url)
+        if url == nil or url == "" then return "" end
+        local prefix,path = url:match("(.+)://(.+)")
+        if prefix == "controller" and path ~= nil then
+           return "http://" .. ip .. "/" .. path
+        end
+        return url
+     end
+
+     local function pickBestIconFromGroup(iconGroupNode)
+        if iconGroupNode == nil or iconGroupNode.ChildNodes == nil then return "" end
+        local bestUrl = ""
+        local bestWidth = -1
+        for _,iconNode in pairs(iconGroupNode.ChildNodes) do
+           if iconNode.Name == "Icon" then
+              local width = tonumber(getAttr(iconNode, "width")) or 0
+              local url = extractText(iconNode)
+              if url ~= "" and width > bestWidth then
+                 bestWidth = width
+                 bestUrl = url
+              end
+           end
+        end
+        return controllerToHttp(bestUrl)
+     end
+
+     local function extractDisplayIconUrl(targetDeviceId)
+        if (targetDeviceId == nil) then return "" end
+        local ok, deviceInfoXml = pcall(C4.GetDeviceData, C4, targetDeviceId)
+        if (not ok or deviceInfoXml == nil or deviceInfoXml == "") then return "" end
+
+        dbg("==== ICON SOURCE XML START (" .. tostring(targetDeviceId) .. ") ====")
+        dbg(deviceInfoXml)
+        dbg("==== ICON SOURCE XML END (" .. tostring(targetDeviceId) .. ") ====")
+
+        deviceInfoXml = "<data>"..deviceInfoXml.."</data>"
+        local deviceInfo = C4:ParseXml(deviceInfoXml)
+        if (deviceInfo == nil or deviceInfo.ChildNodes == nil) then return "" end
+
+        -- First try Media Service UI icon groups
+        local capabilities = findChildByName(deviceInfo, "capabilities")
+        if capabilities ~= nil and capabilities.ChildNodes ~= nil then
+           local uiNode = findChildByName(capabilities, "UI")
+           if uiNode ~= nil then
+              local iconGroupId = ""
+              local deviceIconNode = findChildByName(uiNode, "DeviceIcon")
+              local brandingIconNode = findChildByName(uiNode, "BrandingIcon")
+              iconGroupId = extractText(deviceIconNode)
+              if iconGroupId == "" then
+                 iconGroupId = extractText(brandingIconNode)
+              end
+
+              local iconsNode = findChildByName(uiNode, "Icons")
+              if iconsNode ~= nil and iconsNode.ChildNodes ~= nil and iconGroupId ~= "" then
+                 for _,groupNode in pairs(iconsNode.ChildNodes) do
+                    if groupNode.Name == "IconGroup" and tostring(getAttr(groupNode, "id") or "") == tostring(iconGroupId) then
+                       local picked = pickBestIconFromGroup(groupNode)
+                       if picked ~= "" then
+                          return picked
+                       end
+                    end
+                 end
+              end
+           end
+
+           -- Fallback to older navigator_display_option/display_icons path
+           local navNode = findChildByName(capabilities, "navigator_display_option")
+           if navNode ~= nil and navNode.ChildNodes ~= nil then
+              local displayIconsNode = findChildByName(navNode, "display_icons")
+              if displayIconsNode ~= nil and displayIconsNode.ChildNodes ~= nil and displayIconsNode.ChildNodes[1] ~= nil then
+                 local oldUrl = extractText(displayIconsNode.ChildNodes[1])
+                 oldUrl = controllerToHttp(oldUrl)
+                 if oldUrl ~= "" then
+                    local prefix,path = oldUrl:match("(.+)://(.+)")
+                    if prefix == nil then
+                       return oldUrl
+                    end
+                 end
+              end
+           end
+        end
+
+        return ""
+     end
+
+     deviceIconUrl = extractDisplayIconUrl(iconDeviceId)
+     if (deviceIconUrl == "" and fallbackDeviceId ~= iconDeviceId) then
+        deviceIconUrl = extractDisplayIconUrl(fallbackDeviceId)
      end
 
      args["devicename"] = C4:ListGetDeviceName(args["deviceid"]) or ""
+     args["medSrcDevName"] = C4:ListGetDeviceName(args["medSrcDev"]) or ""
+     args["deviceicon"] = deviceIconUrl
+     args["displayicon"] = deviceIconUrl
 
      if (args["img"] == nil) then
-      local prefix,path = deviceIconUrl:match("(.+)://(.+)")
-      if path ~= nil then
-         local basePath,fileName = path:match("(.+)/(.+)")
-         local imgUrl = "http://"..ip.."/"..basePath.."/experience_1024.png"
-         local imgUrlFallback = "http://"..ip.."/"..path
-         args["img"] = imgUrl
-         args["imgFallback"] = imgUrlFallback
-      end
+        if deviceIconUrl ~= "" then
+           args["img"] = deviceIconUrl
+        end
      else
-      local imgUrl = C4:Base64Decode(args["img"])
-      local prefix,path = imgUrl:match("(.+)://(.+)")
-      if (prefix == "controller") then
-        imgUrl = "http://"..ip.."/"..path
-      end
-      args["img"] = imgUrl
+        local imgUrl = C4:Base64Decode(args["img"])
+        local prefix,path = imgUrl:match("(.+)://(.+)")
+        if (prefix == "controller") then
+          imgUrl = "http://"..ip.."/"..path
+        end
+        args["img"] = imgUrl
      end
   end
   return args

@@ -1,0 +1,290 @@
+@charset "UTF-8";
+
+html, body{
+  height:100%;
+  margin:0;
+  background:#000 !important;
+  color:#fff !important;
+  overflow:hidden;
+  font-family: "Roboto", system-ui, -apple-system, "Segoe UI", Arial, sans-serif !important;
+}
+.text{ color:#fff !important; font-family: inherit !important; }
+
+#main-container{ opacity:1; transition: opacity 1.2s ease; }
+#main-container.fade{ opacity:0; }
+#main-container{ height:100vh; width:100vw; position:relative; overflow:hidden; }
+
+#metadata-container{ position:absolute; visibility:visible; }
+#date-time-temp-container{
+  position:absolute;
+  width:auto;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  z-index:20;
+}
+#date, #temp{ display:none; }
+#time{ display:flex; flex-direction:column; line-height:1; }
+#ampm{ display:none; }
+#clock{ font-weight:100; letter-spacing:0.02em; opacity:0.95; }
+
+#artist{ order:1; }
+#title{ order:2; }
+#album{ order:3; }
+#artist, #title, #album{ overflow-wrap:anywhere; }
+#artist{ font-weight:300; opacity:0.90; line-height:1.1; }
+#title{ font-weight:100; opacity:0.98; line-height:1.12; }
+#album{ font-weight:300; opacity:0.65; line-height:1.1; }
+
+#source-logo-container{
+  width:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin-top:1.2vh;
+  margin-bottom:0.6vh;
+}
+#source-logo{
+  opacity:0.90;
+  object-fit:contain;
+  display:none;
+}
+
+/* Portrait family */
+body.profile-portrait-small #metadata-container,
+body.profile-portrait-large #metadata-container,
+body.profile-auto-portrait #metadata-container{
+  top: 6vh;
+  left: 0;
+  right: 0;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+  padding: 0 6vw;
+  gap: 3vh;
+}
+body.profile-portrait-small #art-container,
+body.profile-portrait-large #art-container,
+body.profile-auto-portrait #art-container{
+  width: 88vw;
+  aspect-ratio:1 / 1;
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+body.profile-portrait-small #art,
+body.profile-portrait-large #art,
+body.profile-auto-portrait #art{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+body.profile-portrait-small #metadata-text-container,
+body.profile-portrait-large #metadata-text-container,
+body.profile-auto-portrait #metadata-text-container{
+  width:88vw;
+  margin:0 auto;
+  display:flex;
+  flex-direction:column;
+  gap:1.2vh;
+}
+body.profile-portrait-small #artist,
+body.profile-auto-portrait #artist{ font-size:4.4vmin; }
+body.profile-portrait-small #title,
+body.profile-auto-portrait #title{ font-size:7.8vmin; }
+body.profile-portrait-small #album,
+body.profile-auto-portrait #album{ font-size:5.0vmin; }
+body.profile-portrait-small #clock,
+body.profile-auto-portrait #clock{ font-size:18vmin; }
+
+body.profile-portrait-large #artist{ font-size:3.4vmin; }
+body.profile-portrait-large #title{ font-size:6.0vmin; }
+body.profile-portrait-large #album{ font-size:4.0vmin; }
+body.profile-portrait-large #clock{ font-size:15vmin; }
+
+/* Portrait text opposite of clock */
+body.profile-portrait-small #main-container.mpos0 #metadata-text-container,
+body.profile-portrait-large #main-container.mpos0 #metadata-text-container,
+body.profile-auto-portrait #main-container.mpos0 #metadata-text-container{
+  align-items:flex-start;
+  text-align:left;
+}
+body.profile-portrait-small #main-container.mpos1 #metadata-text-container,
+body.profile-portrait-large #main-container.mpos1 #metadata-text-container,
+body.profile-auto-portrait #main-container.mpos1 #metadata-text-container{
+  align-items:flex-end;
+  text-align:right;
+}
+body.profile-portrait-small #source-logo-container,
+body.profile-portrait-large #source-logo-container,
+body.profile-auto-portrait #source-logo-container{
+  min-height:3.4vh;
+}
+body.profile-portrait-small #source-logo,
+body.profile-portrait-large #source-logo,
+body.profile-auto-portrait #source-logo{
+  max-height:3.6vh;
+  max-width:18vw;
+}
+
+/* Landscape family */
+body.profile-landscape-small #metadata-container,
+body.profile-landscape-large #metadata-container,
+body.profile-auto-landscape #metadata-container{
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display:grid;
+  grid-template-columns: minmax(34vw, 42vw) 1fr;
+  grid-template-areas:
+    "art ."
+    "text text";
+  align-items:start;
+  padding: 4vh 4vw 16vh 4vw;
+  column-gap: 4vw;
+  row-gap: 2vh;
+}
+body.profile-landscape-small #art-container,
+body.profile-landscape-large #art-container,
+body.profile-auto-landscape #art-container{
+  grid-area: art;
+  width:100%;
+  aspect-ratio:1 / 1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+body.profile-landscape-small #art,
+body.profile-landscape-large #art,
+body.profile-auto-landscape #art{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+body.profile-landscape-small #metadata-text-container,
+body.profile-landscape-large #metadata-text-container,
+body.profile-auto-landscape #metadata-text-container{
+  grid-area: text;
+  width:100%;
+  max-width:none;
+  margin:0;
+  display:flex;
+  flex-direction:column;
+  gap:1.2vh;
+  justify-content:flex-start;
+  align-items:flex-start;
+  text-align:left;
+  padding-right:24vw;
+}
+body.profile-landscape-small #artist{ font-size:2.8vmin; }
+body.profile-landscape-small #title{ font-size:5.4vmin; }
+body.profile-landscape-small #album{ font-size:3.4vmin; }
+body.profile-landscape-small #clock{ font-size:12vmin; }
+
+body.profile-landscape-large #artist,
+body.profile-auto-landscape #artist{ font-size:3.2vmin; }
+body.profile-landscape-large #title,
+body.profile-auto-landscape #title{ font-size:6.2vmin; }
+body.profile-landscape-large #album,
+body.profile-auto-landscape #album{ font-size:4.0vmin; }
+body.profile-landscape-large #clock,
+body.profile-auto-landscape #clock{ font-size:14vmin; }
+
+/* Landscape logo centered at bottom */
+body.profile-landscape-small #source-logo-container,
+body.profile-landscape-large #source-logo-container,
+body.profile-auto-landscape #source-logo-container{
+  position:absolute;
+  left:50%;
+  bottom:3.5vh;
+  transform:translateX(-50%);
+  width:auto;
+  margin:0;
+  z-index:15;
+}
+body.profile-landscape-small #source-logo,
+body.profile-landscape-large #source-logo,
+body.profile-auto-landscape #source-logo{
+  max-height:7vh;
+  max-width:7vh;
+  min-width:52px;
+  min-height:52px;
+}
+
+/* Clock positions */
+#main-container.mpos0 #date-time-temp-container{
+  right:6vw;
+  bottom:7vh;
+  left:auto;
+  top:auto;
+  align-items:flex-end;
+}
+#main-container.mpos1 #date-time-temp-container{
+  left:6vw;
+  bottom:7vh;
+  right:auto;
+  top:auto;
+  align-items:flex-start;
+}
+#main-container.mpos1 #time{ align-items:flex-start; }
+
+/* Force landscape clock to bottom-right always */
+body.profile-landscape-small #date-time-temp-container,
+body.profile-landscape-large #date-time-temp-container,
+body.profile-auto-landscape #date-time-temp-container{
+  right:6vw !important;
+  bottom:5vh !important;
+  left:auto !important;
+  top:auto !important;
+  align-items:flex-end !important;
+}
+body.profile-landscape-small #time,
+body.profile-landscape-large #time,
+body.profile-auto-landscape #time{
+  align-items:flex-end !important;
+}
+
+/* subtle burn-in for clock/logo only */
+#date-time-temp-container,
+#source-logo-container{
+  animation-duration: 1200s;
+  animation-timing-function: step-end;
+  animation-iteration-count: infinite;
+}
+#date-time-temp-container{ animation-name: clockMicroShift; }
+#source-logo-container{ animation-name: logoMicroShift; }
+
+@keyframes clockMicroShift {
+  0%   { transform: translate(0px, 0px); }
+  25%  { transform: translate(-10px, -6px); }
+  50%  { transform: translate(8px, -4px); }
+  75%  { transform: translate(-6px, 8px); }
+  100% { transform: translate(0px, 0px); }
+}
+
+@keyframes logoMicroShift {
+  0%   { transform: translateX(-50%) translate(0px, 0px); }
+  25%  { transform: translateX(-50%) translate(-10px, 2px); }
+  50%  { transform: translateX(-50%) translate(10px, -2px); }
+  75%  { transform: translateX(-50%) translate(-6px, 4px); }
+  100% { transform: translateX(-50%) translate(0px, 0px); }
+}
+
+@media (max-aspect-ratio: 1/1) {
+  @keyframes clockMicroShift {
+    0%   { transform: translate(0px, 0px); }
+    25%  { transform: translate(-6px, -4px); }
+    50%  { transform: translate(5px, -3px); }
+    75%  { transform: translate(-4px, 5px); }
+    100% { transform: translate(0px, 0px); }
+  }
+  @keyframes logoMicroShift {
+    0%   { transform: translateX(-50%) translate(0px, 0px); }
+    25%  { transform: translateX(-50%) translate(-6px, 1px); }
+    50%  { transform: translateX(-50%) translate(6px, -1px); }
+    75%  { transform: translateX(-50%) translate(-4px, 3px); }
+    100% { transform: translateX(-50%) translate(0px, 0px); }
+  }
+}

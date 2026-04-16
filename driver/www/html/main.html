@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>C4-Android-Screensaver</title>
-<script type="text/javascript" src="js/metadata.js"></script>
-<link id="main-stylesheet" href="css/style.css" rel="stylesheet" type="text/css">
-<link id="layout-stylesheet" href="css/media.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="js/metadata.js?v=20260415g"></script>
+<link id="main-stylesheet" href="css/style.css?v=20260415g" rel="stylesheet" type="text/css">
+<link id="layout-stylesheet" href="css/media.css?v=20260415g" rel="stylesheet" type="text/css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap" rel="stylesheet">
 </head>
-<body onLoad="populateMetadata()">
+<body onLoad="initPage()">
     <div id="main-container">
         <div id="date-time-temp-container">
             <div id="time">
@@ -32,6 +32,10 @@
         <div id="metadata-container">
             <div id="art-container">
                 <img id="art" src="" alt=""/>
+            </div>
+
+            <div id="source-logo-container">
+                <img id="source-logo" src="" alt=""/>
             </div>
 
             <div id="metadata-text-container">
